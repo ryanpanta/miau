@@ -43,5 +43,10 @@ namespace miau_webapi.Services
 
             return _tokenService.GenerateToken(user);
         }
+
+        public async Task<UserModel> GetUserById(int id)
+        {
+            return await _userRepository.GetUserById(id);
+        }
     }
 }

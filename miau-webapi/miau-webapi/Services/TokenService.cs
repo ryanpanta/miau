@@ -41,5 +41,33 @@ namespace miau_webapi.Services
                 token = tokenString
             };
         }
+
+        public ClaimsPrincipal ValidateToken(string token)
+        {
+            try
+            {
+                string secret = _configuration["Jwt:SecretKey"];
+
+                var key = Encoding.ASCII.GetBytes(secret);
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true, 
+                    ClockSkew = TimeSpan.Zero 
+                };
+
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+                return principal;
+            }
+            catch (Exception)
+            {
+                return null; 
+            }
+        }
     }
 }

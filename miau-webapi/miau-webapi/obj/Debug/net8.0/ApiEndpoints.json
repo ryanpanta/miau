@@ -17,7 +17,7 @@
   },
   {
     "ContainingType": "miau_webapi.Controllers.AuthController",
-    "Method": "Me",
+    "Method": "GetMe",
     "RelativePath": "api/Auth/me",
     "HttpMethod": "GET",
     "IsController": true,
@@ -39,6 +39,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "miau_webapi.Controllers.AuthController",
+    "Method": "VerifyToken",
+    "RelativePath": "api/Auth/validate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
