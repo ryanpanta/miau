@@ -1,0 +1,6 @@
+@miau_webapi_HostAddress = http://localhost:5244
+
+GET {{miau_webapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

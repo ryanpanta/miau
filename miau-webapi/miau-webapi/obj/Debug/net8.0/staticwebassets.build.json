@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "pM+dn75X/AXThP4Gvg8Ukeu7uUAhOO6EZXgnP0HvaSk=",
+  "Source": "miau-webapi",
+  "BasePath": "_content/miau-webapi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
