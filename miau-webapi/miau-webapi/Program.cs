@@ -1,4 +1,6 @@
 
+using CloudinaryDotNet;
+using dotenv.net;
 using DotNetEnv;
 using miau_webapi.Data;
 using miau_webapi.Data.Interfaces;
@@ -11,6 +13,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
+
+var cloudName = Environment.GetEnvironmentVariable("CLOUDINARY_CLOUD_NAME");
+var apiKey = Environment.GetEnvironmentVariable("CLOUDINARY_API_KEY");
+var apiSecret = Environment.GetEnvironmentVariable("CLOUDINARY_API_SECRET");
+
+builder.Services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
 
 
 // get all the environment database settings variables
@@ -90,6 +99,8 @@ builder.Services.AddAuthentication(x =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<TokenService>();
 

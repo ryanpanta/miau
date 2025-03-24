@@ -175,4 +175,7 @@ D:\miau\miau-webapi\miau-webapi\obj\Debug\net8.0\refint\miau-webapi.dll
 D:\miau\miau-webapi\miau-webapi\obj\Debug\net8.0\miau-webapi.pdb
 D:\miau\miau-webapi\miau-webapi\obj\Debug\net8.0\miau-webapi.genruntimeconfig.cache
 D:\miau\miau-webapi\miau-webapi\obj\Debug\net8.0\ref\miau-webapi.dll
+D:\miau\miau-webapi\miau-webapi\bin\Debug\net8.0\CloudinaryDotNet.dll
+D:\miau\miau-webapi\miau-webapi\bin\Debug\net8.0\dotenv.net.dll
+D:\miau\miau-webapi\miau-webapi\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\miau\miau-webapi\miau-webapi\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

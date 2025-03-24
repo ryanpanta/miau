@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.27.4, )"
+            },
             "DotNetEnv": {
               "target": "Package",
               "version": "[2.5.0, )"
@@ -91,6 +95,10 @@
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
               "version": "[8.7.0, )"
+            },
+            "dotenv.net": {
+              "target": "Package",
+              "version": "[3.2.1, )"
             }
           },
           "imports": [

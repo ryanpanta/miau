@@ -16,5 +16,7 @@ namespace miau_webapi.Data
         }
 
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<PostModel> Posts { get; set; }
+        public DbSet<CommentModel> Comments { get; set; }
     }
 }
