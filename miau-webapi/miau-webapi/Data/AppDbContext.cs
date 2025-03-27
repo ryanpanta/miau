@@ -12,11 +12,13 @@ namespace miau_webapi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PostLike>()
+                .HasKey(pl => new { pl.UserId, pl.PostId });
         }
 
         public DbSet<UserModel> Users { get; set; }
         public DbSet<PostModel> Posts { get; set; }
         public DbSet<CommentModel> Comments { get; set; }
+        public DbSet<PostLike> PostLikes { get; set; }
     }
 }

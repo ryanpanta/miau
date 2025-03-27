@@ -27,7 +27,9 @@ namespace miau_webapi.Data.Repositories
 
         public async Task<UserModel> GetUserById(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+                .FromSqlRaw("SELECT * FROM fn_GetUserById({0})", id)
+                .FirstOrDefaultAsync();
         }
     }
 }
