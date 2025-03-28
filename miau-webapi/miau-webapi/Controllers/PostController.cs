@@ -216,6 +216,28 @@ namespace miau_webapi.Controllers
             }
         }
 
+        [HttpGet("{postId}/comment-suggestion")]
+        public async Task<IActionResult> GetCommentSuggestion(int postId)
+        {
+            try
+            {
+                var post = await _postRepository.GetPostById(postId);
+                if (post == null)
+                {
+                    return NotFound(new { message = "Post não encontrado." });
+                }
+
+                var suggestion = await _postService.GetCommentSuggestion(post.CatName, post.Description);
+                return Ok(new { suggestion });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
+
     }
     public class CreatePostRequest
     {

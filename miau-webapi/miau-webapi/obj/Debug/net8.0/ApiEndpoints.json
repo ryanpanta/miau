@@ -131,6 +131,22 @@
   },
   {
     "ContainingType": "miau_webapi.Controllers.PostsController",
+    "Method": "GetCommentSuggestion",
+    "RelativePath": "api/Posts/{postId}/comment-suggestion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "miau_webapi.Controllers.PostsController",
     "Method": "CreateComment",
     "RelativePath": "api/Posts/{postId}/comments",
     "HttpMethod": "POST",

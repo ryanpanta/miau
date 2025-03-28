@@ -3,6 +3,12 @@ using CloudinaryDotNet;
 using miau_webapi.Data.Interfaces;
 using Microsoft.Extensions.Hosting;
 using miau_webapi.Models;
+using DotNetEnv;
+using System.Net.Http;
+using System.Text;
+using OpenAI;
+using OpenAI.Chat;
+using System.ClientModel;
 
 namespace miau_webapi.Services
 {
@@ -75,6 +81,39 @@ namespace miau_webapi.Services
             }
 
             return await _postRepository.CreateComment(userId, postId, content);
+        }
+
+        public async Task<string> GetCommentSuggestion(string catName, string description)
+        {
+            var endpoint = new Uri("https://models.inference.ai.azure.com");
+            var credentialString = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+            var model = "gpt-4o";
+            var credential = new ApiKeyCredential(credentialString);
+            var openAIOptions = new OpenAIClientOptions()
+            {
+                Endpoint = endpoint
+            };
+
+            var client = new ChatClient(model, credential, openAIOptions);
+
+            List<ChatMessage> messages = new List<ChatMessage>()
+            {
+                new SystemChatMessage("You are a helpful assistant."),
+                new UserChatMessage($"Gere uma sugestão de comentário positivo e criativo para uma foto de um gato chamado '{catName}' com a descrição '{description}'. Se não tiver dados suficientes para algo específico, retorne uma mensagem genérica como 'Que foto legal!' ou 'Que gato lindo!'."),
+            };
+
+            var requestOptions = new ChatCompletionOptions()
+            {
+                Temperature = 1.0f,
+                TopP = 1.0f,
+                MaxOutputTokenCount = 100,
+            };
+
+            var response = client.CompleteChat(messages, requestOptions);
+            var suggestion = response.Value.Content[0].Text;
+
+            
+            return string.IsNullOrEmpty(suggestion) ? "Que gato lindo!" : suggestion;
         }
 
     }
