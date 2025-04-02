@@ -353,7 +353,7 @@
       "LoginRequest": {
         "type": "object",
         "properties": {
-          "email": {
+          "username": {
             "type": "string",
             "nullable": true
           },

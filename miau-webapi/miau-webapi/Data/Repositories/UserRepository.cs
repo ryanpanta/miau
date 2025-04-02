@@ -20,9 +20,9 @@ namespace miau_webapi.Data.Repositories
             return user;
         }
 
-        public async Task<UserModel> GetUserByEmail(string email)
+        public async Task<UserModel> GetUserByUsername(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
 
         public async Task<UserModel> GetUserById(int id)

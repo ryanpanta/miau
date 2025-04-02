@@ -17,10 +17,10 @@ namespace miau_webapi.Services
 
         public async Task<UserModel> Register(string username, string email, string password)
         {
-            var existingUser = await _userRepository.GetUserByEmail(email);
+            var existingUser = await _userRepository.GetUserByUsername(username);
             if (existingUser != null)
             {
-                throw new Exception("Email já cadastrado.");
+                throw new Exception("Usuário já cadastrado.");
             }
 
             var user = new UserModel
@@ -33,12 +33,12 @@ namespace miau_webapi.Services
             return await _userRepository.Register(user);
         }
 
-        public async Task<object> Login(string email, string password)
+        public async Task<object> Login(string username, string password)
         {
-            var user = await _userRepository.GetUserByEmail(email);
+            var user = await _userRepository.GetUserByUsername(username);
             if (user == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
-                throw new Exception("Email ou senha inválidos.");
+                throw new Exception("Usuário ou senha inválidos.");
             }
 
             return _tokenService.GenerateToken(user);

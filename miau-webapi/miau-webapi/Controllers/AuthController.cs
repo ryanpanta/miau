@@ -38,7 +38,7 @@ namespace miau_webapi.Controllers
         {
             try
             {
-                var token = await _authService.Login(request.Email, request.Password);
+                var token = await _authService.Login(request.Username, request.Password);
                 return Ok(token);
             }
             catch (Exception ex)

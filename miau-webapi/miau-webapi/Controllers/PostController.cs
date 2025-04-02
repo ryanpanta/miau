@@ -177,6 +177,7 @@ namespace miau_webapi.Controllers
                     views = post.Views,
                     likes = post.Likes,
                     createdAt = post.CreatedAt,
+                    userName = post.User?.Username,
                     hasLiked = hasLiked,
                     comments = comments
                 });
@@ -194,6 +195,7 @@ namespace miau_webapi.Controllers
             try
             {
                 var userIdClaim = User.FindFirst("userId")?.Value;
+                var username = User.FindFirst("username")?.Value;
                 if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
                 {
                     return Unauthorized(new { message = "Token inválido ou sem ID de usuário." });
@@ -201,13 +203,15 @@ namespace miau_webapi.Controllers
 
                 var comment = await _postService.CreateComment(userId, postId, request.Content);
 
+                //add the username into return
                 return Ok(new
                 {
                     id = comment.Id,
                     postId = comment.PostId,
                     userId = comment.UserId,
                     content = comment.Content,
-                    createdAt = comment.CreatedAt
+                    createdAt = comment.CreatedAt,
+                    username = username,
                 });
             }
             catch (Exception ex)

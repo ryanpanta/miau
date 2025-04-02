@@ -5,7 +5,7 @@ namespace miau_webapi.Data.Interfaces
     public interface IUserRepository
     {
         Task<UserModel> Register(UserModel user);
-        Task<UserModel> GetUserByEmail(string email);
+        Task<UserModel> GetUserByUsername(string username);
         Task<UserModel> GetUserById(int id);
     }
 }
