@@ -47,7 +47,17 @@ export const tokenPost = async (body) => {
       return response.data;
     } catch (error) {
       console.error('Erro ao enviar foto:', error);
-      throw error;
+      throw error.response.data.message;
+    }
+  };
+
+  export const addLike = async (id) => {
+    try {
+      const response = await api.post(`/Posts/${id}/like`, null);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao enviar foto:', error);
+      throw error.response.data.message;
     }
   };
   

@@ -45,3 +45,25 @@
 .photo:hover .visualizacao {
     display: flex;
 }
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(245, 245, 245);
+    border-radius: 0 0 .2rem .2rem;
+}
+
+.details p {
+    color: #969696;
+}
+
+.details button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    pointer-events: visibleStroke;
+}
