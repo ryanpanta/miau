@@ -12,22 +12,43 @@ namespace miau_webapi.Controllers
     {
         private readonly PostService _postService;
         private readonly IPostRepository _postRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PostsController(PostService postService, IPostRepository postRepository)
+        public PostsController(PostService postService, IPostRepository postRepository, IUserRepository userRepository)
         {
             _postService = postService;
             _postRepository = postRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] int? userId = null)
+        public async Task<IActionResult> GetPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? userId = null)
         {
             try
             {
-                var posts = await _postService.GetPosts(page, pageSize, userId);
+
+                int? parsedUserId = null;
+
+                if (!string.IsNullOrEmpty(userId))
+                {
+                    if (int.TryParse(userId, out int intUserId))
+                    {
+                        parsedUserId = intUserId;
+                    }
+                    else
+                    {
+                        var user = await _userRepository.GetUserByUsername(userId);
+                        if (user != null)
+                        {
+                            parsedUserId = user.Id;
+                        }
+                    }
+                }
+
+                var posts = await _postService.GetPosts(page, pageSize, parsedUserId);
 
                 var userIdClaim = User.FindFirst("userId")?.Value;
-                int? currentUserId = string.IsNullOrEmpty(userIdClaim) ? (int?)null : int.Parse(userIdClaim);
+                int? currentUserId = string.IsNullOrEmpty(userIdClaim) ? null : int.Parse(userIdClaim);
 
                 var postResponse = posts.Select(post => new
                 {
