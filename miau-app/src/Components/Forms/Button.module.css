@@ -1,0 +1,28 @@
+.button {
+    font-size: 1rem;
+    font-family: var(--type-first);
+    cursor: pointer;
+    border-radius: .4rem;
+    background-color: #fb1;
+    color: #764701;
+    padding: .8rem 1.2rem;
+    box-sizing: border-box;
+    border: none;
+    transition: .1s;
+    min-width: 8rem;
+}
+
+.button:hover,
+.button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+}
+
+.button:disabled,
+.button:disabled:focus,
+.button:disabled:hover {
+    border: none;
+    outline: none;
+    opacity: .5;
+    cursor: wait;
+}
