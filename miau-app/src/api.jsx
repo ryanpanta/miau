@@ -142,3 +142,13 @@ export const tokenPost = async (body) => {
       throw error;
     }
   };
+
+  export const getSuggestionComment = async (id) => {
+    try {
+      const response = await api.get(`/Posts/${id}/comment-suggestion`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao buscar sugestões de comentários:', error);
+      throw error;
+    }
+  }

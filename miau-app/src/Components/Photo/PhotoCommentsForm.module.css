@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: stretch;
-    margin: 1rem;
+    margin: .5rem 1rem;
 }
 
 .single.form {
@@ -63,4 +63,18 @@
     to {
         opacity: initial;
     }
+}
+
+.buttonIA {
+    border: none;
+    cursor: pointer;
+    color: #333;
+    background: transparent;
+    font-size: .8rem;
+    padding: .5rem 1rem 1rem 1rem;
+    overflow: hidden;
+}
+
+.buttonIA:hover span {
+    text-decoration: underline;
 }
