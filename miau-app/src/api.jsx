@@ -43,7 +43,7 @@ export const tokenPost = async (body) => {
   
   export const photoPost = async (formData) => {
     try {
-      const response = await api.post('/api/photo', formData);
+      const response = await api.post('/Posts', formData);
       return response.data;
     } catch (error) {
       console.error('Erro ao enviar foto:', error);

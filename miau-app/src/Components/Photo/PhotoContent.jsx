@@ -7,6 +7,7 @@ import PhotoDelete from "./PhotoDelete";
 import Image from "../Helper/Image";
 function PhotoContent({ data, single }) {
     const user = React.useContext(UserContext);
+    console.log(user);
     const { comments } = data;
     return (
         <div className={`${styles.photo} ${single && styles.single}`}>

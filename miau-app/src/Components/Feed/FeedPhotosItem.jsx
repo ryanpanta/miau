@@ -3,8 +3,9 @@ import styles from "./FeedPhotosItem.module.css";
 import Image from "../Helper/Image";
 import { Heart } from "lucide-react";
 import { addLike } from "../../api";
-
+import {UserContext} from "../../UserContext";
 function FeedPhotosItem({ photo, setModalPhoto }) {
+    const { login } = React.useContext(UserContext);
     const [isLiked, setIsLiked] = React.useState(photo.hasLiked);
 
     function handleClick() {
@@ -12,13 +13,18 @@ function FeedPhotosItem({ photo, setModalPhoto }) {
     }
 
     async function handleLike(event) {
+        if (!login) {
+            window.location.href = "/login";
+            return;
+        }
         event.stopPropagation();
         try {
-            await addLike(photo.id);
             setIsLiked(!isLiked);
+            await addLike(photo.id);
         } catch (error) {
+            setIsLiked(!isLiked);
             console.error("Erro ao dar like:", error);
-            alert("Erro ao dar like na foto.");
+            alert("Erro ao dar like na foto. Tente novamente mais tarde");
         }
     }
 
@@ -27,7 +33,7 @@ function FeedPhotosItem({ photo, setModalPhoto }) {
             <Image src={photo.imageUrl} alt={photo.description} />
             <span className={styles.visualizacao}>{photo.views}</span>
             <section className={styles.details}>
-                <p>@{photo.username}</p>
+                <a href={`/perfil/${photo.username}`}>@{photo.username}</a>
                 <button onClick={handleLike}>
                     <Heart
                         size={20}

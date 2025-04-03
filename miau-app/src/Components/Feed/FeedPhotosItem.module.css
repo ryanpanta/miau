@@ -55,8 +55,12 @@
     border-radius: 0 0 .2rem .2rem;
 }
 
-.details p {
+.details a {
     color: #969696;
+}
+
+.details a:hover {
+    text-decoration: underline;
 }
 
 .details button {

@@ -13,26 +13,37 @@ function UserPhotoPost() {
   const nome = useForm();
   const peso = useForm();
   const idade = useForm();
+  const descricao = useForm();
   const [img, setImg] = React.useState({});
-  const { data, error, loading, request } = useFetch();
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState(null);
+  const [error, setError] = React.useState(null);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if(data) navigate('/conta')
   }, [data, navigate])
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
+    try {
+    setLoading(true);
     event.preventDefault();
     const formData = new FormData();
-    formData.append("img", img.raw);
-    formData.append("nome", nome.value);
-    formData.append("peso", peso.value);
-    formData.append("idade", idade.value);
+    formData.append("image", img.raw);
+    formData.append("catName", nome.value);
+    formData.append("weight", peso.value);
+    formData.append("age", idade.value);
+    formData.append("description", descricao.value);
 
-    const token = window.localStorage.getItem("token");
-    const { url, options } = photoPost(formData, token);
-    request(url, options);
-    
+    const response = await photoPost(formData);
+    setData(response);
+    } catch (error) {
+      setError(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+
   }
 
   function handleImageChange({ target }) {
@@ -50,6 +61,7 @@ function UserPhotoPost() {
         <Input label="Nome" type="text" name="nome" {...nome} />
         <Input label="Peso" type="number" name="peso" {...peso} />
         <Input label="Idade" type="number" name="idade" {...idade} />
+        <Input label="Descrição" type="text" name="descricao" {...descricao} />
         <input
           className={styles.file}
           type="file"
