@@ -28,7 +28,7 @@ namespace miau_webapi.Data.Repositories
             return await _context.Posts
                 .Include(p => p.PostLikes)
                 .Include(p => p.Comments) 
-                .ThenInclude(c => c.User) 
+                .Include(c => c.User) 
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

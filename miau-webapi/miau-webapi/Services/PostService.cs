@@ -16,11 +16,13 @@ namespace miau_webapi.Services
     {
         private readonly IPostRepository _postRepository;
         private readonly Cloudinary _cloudinary;
+        private readonly IUserRepository _userRepository;
 
-        public PostService(IPostRepository postRepository, Cloudinary cloudinary)
+        public PostService(IPostRepository postRepository, Cloudinary cloudinary, IUserRepository userRepository)
         {
             _postRepository = postRepository;
             _cloudinary = cloudinary;
+            _userRepository = userRepository;
         }
 
         public async Task<PostModel> CreatePost(int userId, string catName, int age, decimal weight, string description, IFormFile image)
@@ -38,6 +40,8 @@ namespace miau_webapi.Services
                 throw new Exception("Erro ao fazer upload da imagem para o Cloudinary.");
             }
 
+            var user = await _userRepository.GetUserById(userId);
+
             var post = new PostModel
             {
                 UserId = userId,
@@ -48,7 +52,8 @@ namespace miau_webapi.Services
                 ImageUrl = uploadResult.SecureUrl.ToString(),
                 Views = 0,
                 Likes = 0,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                User = user,
             };
 
             return await _postRepository.CreatePost(post);
