@@ -131,6 +131,22 @@
   },
   {
     "ContainingType": "miau_webapi.Controllers.PostsController",
+    "Method": "DeletePost",
+    "RelativePath": "api/Posts/{postId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "miau_webapi.Controllers.PostsController",
     "Method": "GetCommentSuggestion",
     "RelativePath": "api/Posts/{postId}/comment-suggestion",
     "HttpMethod": "GET",

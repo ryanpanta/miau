@@ -12,6 +12,7 @@ namespace miau_webapi.Data.Interfaces
         Task IncrementViews(int postId);
         Task<List<PostModel>> GetPosts(int page, int pageSize = 10, int? userId = null);
         Task<CommentModel> CreateComment(int userId, int postId, string content);
+        Task<bool> Delete(int postId);
     }
 
 }

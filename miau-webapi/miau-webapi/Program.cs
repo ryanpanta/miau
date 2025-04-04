@@ -10,8 +10,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json;
+using System.Text.Unicode;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 DotEnv.Load(options: new DotEnvOptions(probeForEnv: true));
 
@@ -20,6 +24,13 @@ var apiKey = Environment.GetEnvironmentVariable("CLOUDINARY_API_KEY");
 var apiSecret = Environment.GetEnvironmentVariable("CLOUDINARY_API_SECRET");
 
 builder.Services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Permite emojis e outros caracteres não-ASCII sem escapar
+        options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+    });
 
 
 // get all the environment database settings variables
@@ -64,7 +75,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-// connection the database to the app
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
@@ -106,7 +116,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

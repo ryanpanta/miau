@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("miau-webapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b2ff11dc3a5ee1dee6414427e8e4d9f8fb17fdcf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5d97a7c88df15b46c599d2bdacdde7f657dfd42")]
 [assembly: System.Reflection.AssemblyProductAttribute("miau-webapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("miau-webapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

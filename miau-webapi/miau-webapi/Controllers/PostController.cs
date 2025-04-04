@@ -3,6 +3,7 @@ using miau_webapi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace miau_webapi.Controllers
 {
@@ -177,11 +178,13 @@ namespace miau_webapi.Controllers
                     hasLiked = await _postService.HasLiked(userId, postId);
                 }
 
+                
+
                 var comments = post.Comments.Select(c => new
                 {
                     id = c.Id,
                     userId = c.UserId,
-                    username = c.User?.Username, 
+                    username = c.User?.Username,
                     content = c.Content,
                     createdAt = c.CreatedAt
                 }).ToList();
@@ -209,6 +212,14 @@ namespace miau_webapi.Controllers
             }
         }
 
+        public static string DecodeUnicodeString(string input)
+        {
+            return Regex.Replace(input, @"\\u([0-9A-Fa-f]{4,5})", match =>
+            {
+                return char.ConvertFromUtf32(Convert.ToInt32(match.Groups[1].Value, 16));
+            });
+        }
+
         [HttpPost("{postId}/comments")]
         [Authorize]
         public async Task<IActionResult> CreateComment(int postId, [FromBody] CreateCommentRequest request)
@@ -224,7 +235,7 @@ namespace miau_webapi.Controllers
 
                 var comment = await _postService.CreateComment(userId, postId, request.Content);
 
-                //add the username into return
+                
                 return Ok(new
                 {
                     id = comment.Id,
@@ -261,6 +272,43 @@ namespace miau_webapi.Controllers
             }
         }
 
+        
+
+        [HttpDelete("{postId}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePost(int postId)
+        {
+            try
+            {
+                var userIdClaim = User.FindFirst("userId")?.Value;
+                if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int userId))
+                {
+                    return Unauthorized(new { message = "Token inválido ou sem ID de usuário." });
+                }
+
+                var post = await _postRepository.GetPostById(postId);
+                if (post == null)
+                {
+                    return NotFound(new { message = "Post não encontrado." });
+                }
+
+                if (post.UserId != userId)
+                {
+                    return Forbid("Você não tem permissão para excluir este post.");
+                }
+
+                var success = await _postRepository.Delete(postId);
+                if (!success)
+                {
+                    return BadRequest(new { message = "Erro ao excluir o post." });
+                }
+                return Ok(new { message = "Post deletado com sucesso." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
 
     }

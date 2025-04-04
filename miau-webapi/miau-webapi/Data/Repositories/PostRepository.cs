@@ -10,10 +10,12 @@ namespace miau_webapi.Data.Repositories
     public class PostRepository : IPostRepository
     {
         private readonly AppDbContext _context;
+        private readonly IUserRepository _userRepository;
 
-        public PostRepository(AppDbContext context)
+        public PostRepository(AppDbContext context, IUserRepository userRepository)
         {
             _context = context;
+            _userRepository = userRepository;
         }
 
         public async Task<PostModel> CreatePost(PostModel post)
@@ -27,8 +29,9 @@ namespace miau_webapi.Data.Repositories
         {
             return await _context.Posts
                 .Include(p => p.PostLikes)
-                .Include(p => p.Comments) 
-                .Include(c => c.User) 
+                .Include(p => p.Comments)
+                .ThenInclude(c => c.User)
+                .Include(p => p.User) 
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
@@ -108,14 +111,28 @@ namespace miau_webapi.Data.Repositories
 
             var newId = (int)newIdParam.Value;
 
+
             return new CommentModel
             {
                 Id = newId,
                 UserId = userId,
                 PostId = postId,
                 Content = content,
-                CreatedAt = createdAt
+                CreatedAt = createdAt,
+                User = await _userRepository.GetUserById(userId),
             };
+        }
+
+        public async Task<bool> Delete(int postId)
+        {
+            var post = await _context.Posts.FindAsync(postId);
+            if (post == null)
+            {
+                return false;
+            }
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
 

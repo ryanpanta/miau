@@ -84,7 +84,6 @@ namespace miau_webapi.Services
             {
                 throw new Exception("Post não encontrado.");
             }
-
             return await _postRepository.CreateComment(userId, postId, content);
         }
 
