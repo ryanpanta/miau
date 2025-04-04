@@ -1,3 +1,7 @@
+.container {
+    grid-column: 2;
+}
+
 .form {
     display: grid;
     grid-template-columns: 1fr auto;

@@ -1,14 +1,13 @@
-import React from 'react'
+import React from "react";
 
 function Head(props) {
-
     React.useEffect(() => {
-        document.title = props.title + ' | Dogs'
-        document.querySelector("meta[name='description']").setAttribute('content', props.description || '')
-    }, [props])
-  return (
-    <></>
-  )
+        document.title = props.title + " | Miau";
+        document
+            .querySelector("meta[name='description']")
+            .setAttribute("content", props.description || "");
+    }, [props]);
+    return <></>;
 }
 
-export default Head
+export default Head;

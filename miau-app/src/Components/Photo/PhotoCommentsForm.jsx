@@ -43,7 +43,7 @@ function PhotoCommentsForm({ id, setComments, single }) {
         }
     }
     return (
-        <div>
+        <div className={styles.container}>
             <form
                 onSubmit={handleSubmit}
                 className={`${styles.form} ${single ? styles.single : ""}`}

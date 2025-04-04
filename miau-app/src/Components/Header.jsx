@@ -5,15 +5,16 @@ import Miau from "../Assets/miau-icon.svg?react";
 import { UserContext } from "../UserContext";
 function Header() {
     const { data } = React.useContext(UserContext);
+    console.log(data);
     return (
         <header className={styles.header}>
             <nav className={`${styles.nav} container`}>
-                <Link className={styles.logo} to="/" aria-label="Dogs - Home">
+                <Link className={styles.logo} to="/" aria-label="Miau - Home">
                     <Miau />
                 </Link>
                 {data ? (
                     <Link className={styles.login} to="/conta">
-                        {data.nome}
+                        {data.username}
                     </Link>
                 ) : (
                     <Link className={styles.login} to="/login">

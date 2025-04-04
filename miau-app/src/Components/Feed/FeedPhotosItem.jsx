@@ -5,7 +5,7 @@ import { Heart } from "lucide-react";
 import { addLike } from "../../api";
 import {UserContext} from "../../UserContext";
 function FeedPhotosItem({ photo, setModalPhoto }) {
-    const { login } = React.useContext(UserContext);
+    const { login, data } = React.useContext(UserContext);
     const [isLiked, setIsLiked] = React.useState(photo.hasLiked);
 
     function handleClick() {
@@ -33,7 +33,7 @@ function FeedPhotosItem({ photo, setModalPhoto }) {
             <Image src={photo.imageUrl} alt={photo.description} />
             <span className={styles.visualizacao}>{photo.views}</span>
             <section className={styles.details}>
-                <a href={`/perfil/${photo.username}`}>@{photo.username}</a>
+                <a href={`/perfil/${photo.username}`}>{photo.username === data.username ? 'eu' : '@' + photo.username}</a>
                 <button onClick={handleLike}>
                     <Heart
                         size={20}
