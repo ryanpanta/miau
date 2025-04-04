@@ -13,12 +13,14 @@ function PhotoComments(props) {
     }, [comments]);
     return (
         <>
+        <p className={styles.sectionTitle}>Comentários:</p>
             <ul
                 ref={commentsSection}
                 className={`${styles.comments} ${
                     props.single ? styles.single : ""
                 }`}
             >
+                
                 {comments.map((comment) => (
                     <li key={comment.id}>
                         <b>{comment.username}: </b>

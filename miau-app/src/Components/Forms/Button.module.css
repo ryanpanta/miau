@@ -3,8 +3,8 @@
     font-family: var(--type-first);
     cursor: pointer;
     border-radius: .4rem;
-    background-color: #fb1;
-    color: #764701;
+    background-color: var(--primary-color);
+    color: var(--terciary-color);
     padding: .8rem 1.2rem;
     box-sizing: border-box;
     border: none;
@@ -15,7 +15,7 @@
 .button:hover,
 .button:focus {
     outline: none;
-    box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
+    box-shadow: 0 0 0 3px var(--secondary-color), 0 0 0 4px var(--primary-color);
 }
 
 .button:disabled,

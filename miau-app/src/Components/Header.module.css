@@ -16,10 +16,17 @@
 
 .logo {
     padding: .5rem;
+    max-width: 100%;
+    
+}
+
+.logo svg {
+    width: 48px;
+    height: 48px;
 }
 
 .login {
-    color: #333;
+    color: var(--tertiary-color);
     display: flex;
     align-items: center;
 }

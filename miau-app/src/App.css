@@ -9,9 +9,12 @@
 body {
   padding-top: 4rem;
   margin: 0px;
-  color: #333;
+  color: var(--tertiary-color);
   --type-first: Helvetica, Arial, sans-serif;
   --type-second: 'Spectral', Georgia;
+  --primary-color: #bdff71;
+  --secondary-color: #cfff98;
+  --tertiary-color: #1b3300;
   font-family: var(--type-first);
   
 }
@@ -28,7 +31,7 @@ ul, li {
 
 a {
   text-decoration: none;
-  color: #333;
+  color: var(--tertiary-color);
 }
 
 img {
@@ -40,7 +43,7 @@ button, input {
   display: block;
   font-size: 1rem;
   font-family: var(--type-first);
-  color: #333;
+  color: var(--tertiary-color);
 }
 
 .App {
@@ -84,7 +87,7 @@ button, input {
   display: block;
   width: 1.5rem;
   height: 1.5rem;
-  background-color: #fb1;
+  background-color: var(--primary-color);
   position: absolute;
   bottom: 5px;
   left: -5px;

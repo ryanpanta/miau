@@ -15,5 +15,5 @@
     outline: none;
     background-color: white;
     box-shadow: 0 0 0 3px #eee;
-    border-color: #333;
+    border-color: var(--tertiary-color);
 }

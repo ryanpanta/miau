@@ -25,15 +25,15 @@
 .textarea:focus,
 .textarea:hover {
     outline: none;
-    border-color: #fb1;
+    border-color: var(--primary-color);
     background-color: white;
-    box-shadow: 0 0 0 3px #fea;
+    box-shadow: 0 0 0 3px var(--secondary-color);
 }
 
 .button {
     border: none;
     cursor: pointer;
-    color: #333;
+    color: var(--tertiary-color);
     background: transparent;
     font-size: 1rem;
     padding: 0 1rem;
@@ -47,8 +47,8 @@
 
 .button:focus svg path, 
 .button:hover svg path{
-    fill: #fea;
-    stroke: #fb1;
+    fill: var(--secondary-color);
+    stroke: var(--primary-color);
 }
 
 .button:focus svg g, 
@@ -68,7 +68,7 @@
 .buttonIA {
     border: none;
     cursor: pointer;
-    color: #333;
+    color: var(--tertiary-color);
     background: transparent;
     font-size: .8rem;
     padding: .5rem 1rem 1rem 1rem;

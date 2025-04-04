@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import Dogs from "../Assets/dogs.svg?react";
+import Miau from "../Assets/miau-icon.svg?react";
 import { UserContext } from "../UserContext";
 function Header() {
     const { data } = React.useContext(UserContext);
@@ -9,7 +9,7 @@ function Header() {
         <header className={styles.header}>
             <nav className={`${styles.nav} container`}>
                 <Link className={styles.logo} to="/" aria-label="Dogs - Home">
-                    <Dogs />
+                    <Miau />
                 </Link>
                 {data ? (
                     <Link className={styles.login} to="/conta">

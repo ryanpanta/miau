@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./Footer.module.css";
-import DogsFooter from "../Assets/dogs-footer.svg?react";
+import Miau from "../Assets/miau-icon.svg?react";
 function Footer() {
     return (
         <footer className={styles.footer}>
-            <DogsFooter />
-            <p>Dogs. Alguns direitos reservados.</p>
+            <Miau />
+            <p>Miau. Feito por Ryan Rodrigues. 2025</p>
         </footer>
     );
 }

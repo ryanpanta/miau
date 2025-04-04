@@ -37,7 +37,7 @@ function UserStatsGraphs({ data }) {
                         },
                         labels: {
                             fontSize: 14,
-                            fill: "#333",
+                            fill: "var(--tertiary-color)",
                         },
                     }}
                 />
