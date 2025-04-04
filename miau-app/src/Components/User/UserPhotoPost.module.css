@@ -6,7 +6,9 @@
 }
 
 .file {
-    margin-bottom: 1rem;
+    display: grid;
+    gap: 6px;
+    margin: 1rem 0;
 }
 
 .preview {
@@ -21,4 +23,31 @@
     height: 0px;
     padding-bottom: 100%;
     
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-family: var(--type-first);
+    resize: none;
+    border: 1px solid #eee;
+    padding: .5rem;
+    border-radius: .2rem;
+    background-color: #eee;
+    transition: .2s;
+    height: 120px;
+}
+
+.textarea:focus,
+.textarea:hover {
+    outline: none;
+    border-color: #fb1;
+    background-color: white;
+    box-shadow: 0 0 0 3px #fea;
+}
+
+.inputGroup{
+    display: grid;
+    gap: 6px;
 }

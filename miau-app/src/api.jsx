@@ -81,13 +81,22 @@ export const tokenPost = async (body) => {
     }
   };
   
+  const encodeEmojis = (str) => {
+    return str.split('').map(char => 
+      char.codePointAt(0) > 127 ? `\\u${char.codePointAt(0).toString(16)}` : char
+    ).join('');
+  };
+  
   export const commentPost = async (id, body) => {
+    const encodedContent = encodeEmojis(body.content);
+    
     try {
-      const response = await api.post(`/Posts/${id}/comments`, body, {
+      const response = await api.post(`/Posts/${id}/comments`, { content: encodedContent }, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
         },
       });
+  
       return response.data;
     } catch (error) {
       console.error('Erro ao postar comentário:', error);
@@ -97,7 +106,7 @@ export const tokenPost = async (body) => {
   
   export const photoDelete = async (id) => {
     try {
-      const response = await api.delete(`/api/photo/${id}`);
+      const response = await api.delete(`/Posts/${id}`);
       return response.data;
     } catch (error) {
       console.error('Erro ao deletar foto:', error);
