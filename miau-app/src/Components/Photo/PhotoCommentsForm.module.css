@@ -42,32 +42,17 @@
     font-size: 1rem;
     padding: 0 1rem;
     overflow: hidden;
+    transition: all .3s;
 }
 
 .button:focus svg , 
 .button:hover svg {
    outline: none;
+   scale: 1.1;
+   color: var(--primary-color);
+   
 }
 
-.button:focus svg path, 
-.button:hover svg path{
-    fill: var(--secondary-color);
-    stroke: var(--primary-color);
-}
-
-.button:focus svg g, 
-.button:hover svg g {
-    animation: latir .6s infinite;
-}
-
-@keyframes latir {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: initial;
-    }
-}
 
 .buttonIA {
     border: none;

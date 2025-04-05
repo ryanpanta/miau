@@ -4,6 +4,7 @@ import useFetch from "../../Hooks/useFetch";
 import { commentPost, getSuggestionComment } from "../../api";
 import Error from "../Helper/Error";
 import styles from "./PhotoCommentsForm.module.css";
+import { Send } from "lucide-react";
 function PhotoCommentsForm({ id, setComments, single }) {
     const [error, setError] = React.useState(null);
     const [comment, setComment] = React.useState("");
@@ -57,7 +58,7 @@ function PhotoCommentsForm({ id, setComments, single }) {
                     onChange={({ target }) => setComment(target.value)}
                 />
                 <button className={styles.button}>
-                    <Enviar />
+                    <Send />
                 </button>
 
                 <Error error={error} />

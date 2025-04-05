@@ -37,6 +37,14 @@
     grid-row: 1/4;
 }
 
+.img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: .2rem;
+}
+
 .single .img {
     grid-row: 1;
     border-radius: .4rem;
@@ -112,4 +120,23 @@
 .description p {
     font-size: 1rem;
     line-height: 1.5;
+}
+
+.buttonActions{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.buttonActions button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    pointer-events: visibleStroke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 }

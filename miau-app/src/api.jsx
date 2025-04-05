@@ -81,17 +81,11 @@ export const tokenPost = async (body) => {
     }
   };
   
-  const encodeEmojis = (str) => {
-    return str.split('').map(char => 
-      char.codePointAt(0) > 127 ? `\\u${char.codePointAt(0).toString(16)}` : char
-    ).join('');
-  };
-  
+ 
   export const commentPost = async (id, body) => {
-    const encodedContent = encodeEmojis(body.content);
-    
+   
     try {
-      const response = await api.post(`/Posts/${id}/comments`, { content: encodedContent }, {
+      const response = await api.post(`/Posts/${id}/comments`, body, {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },

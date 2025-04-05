@@ -5,10 +5,32 @@ import PhotoComments from "./PhotoComments";
 import { UserContext } from "../../UserContext";
 import PhotoDelete from "./PhotoDelete";
 import Image from "../Helper/Image";
+import { Heart } from "lucide-react";
+import { addLike } from "../../api";
 function PhotoContent({ data, single }) {
     const user = React.useContext(UserContext);
-    console.log(user);
     const { comments } = data;
+    const [isLiked, setIsLiked] = React.useState(data?.hasLiked);
+    const [likes, setLikes] = React.useState(data?.likes);
+
+    async function handleLike(event) {
+        if (!user.login) {
+            window.location.href = "/login";
+            return;
+        }
+        event.stopPropagation();
+        try {
+            setIsLiked(!isLiked);
+            setLikes(isLiked ? likes - 1 : likes + 1);
+            await addLike(data.id);
+        } catch (error) {
+            setIsLiked(!isLiked);
+            setLikes(isLiked ? likes + 1 : likes - 1);
+            console.error("Erro ao dar like:", error);
+            alert("Erro ao dar like na foto. Tente novamente mais tarde");
+        }
+    }
+
     return (
         <div className={`${styles.photo} ${single && styles.single}`}>
             <div className={styles.img}>
@@ -24,9 +46,19 @@ function PhotoContent({ data, single }) {
                                 @{data?.userName}
                             </Link>
                         )}
-                        <span className={styles.visualizacoes}>
-                            {data.views}
-                        </span>
+                        <div className={styles.buttonActions}>
+                            <button onClick={handleLike}>
+                                <Heart
+                                    size={20}
+                                    color={isLiked ? "red" : "#969696"}
+                                    fill={isLiked ? "red" : "none"}
+                                />
+                                <span>{likes}</span>
+                            </button>
+                            <span className={styles.visualizacoes}>
+                                {data.views}
+                            </span>
+                        </div>
                     </p>
                     <h1 className="title">
                         <Link to={`/foto/${data.id}`}>{data.catName}</Link>
