@@ -1,4 +1,4 @@
-# Miau | Rede social para gatos
+# Miau | Rede social para gatos 🐈
 
 Bem-vindo ao **Miau**, uma rede social para amantes de gatos! Este projeto permite que usuários compartilhem fotos de seus felinos, interajam com curtidas e comentários, e explorem uma comunidade apaixonada por gatos.
 
@@ -26,7 +26,7 @@ O projeto abrange:
 ### Diagrama de Entidade-Relacionamento
 O banco de dados do Miau é projetado para suportar usuários, posts e interações (curtidas e comentários). Abaixo está o modelo ER:
 
-[Imagem: Diagrama ERD mostrando as tabelas Users, Posts, Comments, PostLikes com suas relações]
+![Diagrama ER mostrando as tabelas Users, Posts, Comments, PostLikes com suas relações](./images/er-diagram.png)
 
 #### Tabelas
 - **Users**: Armazena informações dos usuários.
@@ -60,15 +60,13 @@ O banco de dados do Miau é projetado para suportar usuários, posts e interaç�
 - `Content` em `Comments` usa `NVARCHAR` para suportar emojis Unicode (ex.: `😻🐾`).
 - Relações com `ON DELETE CASCADE` garantem que curtidas e comentários sejam excluídos automaticamente ao deletar um post.
 
----
-
 ## Visão Geral do Sistema
 
 ### Arquitetura do Sistema
-O CatSphere segue uma arquitetura em camadas baseada no **Repository Pattern**, com:
+O Miau segue uma arquitetura em camadas baseada no **Repository Pattern**, com:
 - **Back-end**: ASP.NET Core Web API.
 - **Banco de Dados**: SQL Server com Entity Framework Core.
-- **Front-end**: [Adicionar informação: Framework do front-end, ex.: React].
+- **Front-end**: React.js.
 - **Serviços Externos**: Cloudinary para upload de imagens e Azure Inference/OpenAI para sugestões de comentários.
 
 [Imagem: Diagrama da arquitetura mostrando camadas e fluxo de dados]
@@ -80,79 +78,26 @@ O CatSphere segue uma arquitetura em camadas baseada no **Repository Pattern**, 
 - Comentários em posts, com sugestões geradas por IA.
 - Incremento de visualizações ao acessar detalhes de um post.
 
----
-
-## Configuração do Ambiente
-
-### Requisitos de Software e Hardware
-- **Software**:
-  - .NET 8 SDK
-  - SQL Server 2019+
-  - Visual Studio 2022 ou VS Code
-  - [Adicionar informação: Requisitos do front-end, ex.: Node.js]
-- **Hardware**:
-  - 8 GB RAM (mínimo)
-  - Processador dual-core
-  - 10 GB de espaço livre
-
-### Instruções de Instalação
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/catsphere.git
-   cd catsphere
-   ```
-2. Instale as dependências do back-end:
-   ```bash
-   dotnet restore
-   ```
-3. Configure o SQL Server e aplique as migrações:
-   ```bash
-   dotnet ef database update
-   ```
-4. [Adicionar informação: Instruções para instalar o front-end, ex.: `npm install`]
-
-### Configuração do Ambiente de Desenvolvimento
-1. Crie um arquivo `.env` na raiz do projeto:
-   ```env
-   ConnectionStrings__DefaultConnection="Server=localhost;Database=miau_webapi;Trusted_Connection=True;Encrypt=False"
-   GITHUB_TOKEN="seu-token-para-azure-inference"
-   CLOUDINARY_URL="sua-url-do-cloudinary"
-   ```
-2. Configure o JWT no `appsettings.json`:
-   ```json
-   {
-     "Jwt": {
-       "Key": "sua-chave-secreta",
-       "Issuer": "CatSphere",
-       "Audience": "CatSphereUsers"
-     }
-   }
-   ```
-
-### Dependências
-- **Back-end**:
-  - `Microsoft.EntityFrameworkCore.SqlServer`
-  - `Microsoft.AspNetCore.Authentication.JwtBearer`
-  - `CloudinaryDotNet`
-  - `Azure.AI.OpenAI` (ou similar para Azure Inference)
-- [Adicionar informação: Dependências do front-end]
-
----
-
 ## Desenvolvimento
 
 ### Estrutura do Projeto
 ```
-CatSphere/
-├── miau_webapi/           # Projeto ASP.NET Core
-│   ├── Controllers/       # Controllers da API
-│   ├── Models/            # Modelos de dados
-│   ├── Repositories/      # Implementação do Repository Pattern
-│   ├── Services/          # Lógica de negócios
-│   ├── Data/              # Contexto do EF Core
-│   └── Program.cs         # Configuração da aplicação
-├── frontend/              # [Adicionar informação: Estrutura do front-end]
-└── README.md
+Miau/
+├── miau-webapi/             # Projeto ASP.NET Core
+│   ├── Controllers/         # Controllers da API
+│   ├── Models/              # Modelos de dados (entidades)
+│   ├── Repositories/        # Implementação do Repository Pattern
+│   ├── Services/            # Lógica de negócios
+│   ├── Data/                # Contexto do EF Core
+│   └── Program.cs           # Configuração da aplicação
+├── miau-app/                # [Adicionar informação: Estrutura do front-end]
+│   ├── src
+│   │   ├── Assets           # Arquivos estáticos e imagens utilizadas dentro do projeto
+│   │   ├── Components       # Componentes reutilizáveis da interface de usuário (UI)
+│   │   ├── Hooks            # Hooks personalizados do React para reutilizar lógica de estado/efeitos
+│   │   ├── api.jsx          # Configuração dos endpoints da API para consumo pelo front-end
+│   │   ├── App.jsx          # Componente principal, configuração de rotas
+│   │   ├── UserContext.jsx  # Contexto global para gerenciar informações do usuário autenticado
 ```
 
 ### Descrição das Camadas
@@ -199,14 +144,30 @@ public async Task<CommentModel> CreateComment(int userId, int postId, string con
 }
 ```
 
----
+Implementação Stored Procedure:
+
+```
+CREATE PROCEDURE sp_CreateComment
+    @UserId INT,
+    @PostId INT,
+    @Content NVARCHAR(500),
+    @CreatedAt DATETIME,
+    @NewId INT OUTPUT
+AS
+BEGIN
+    INSERT INTO Comments (UserId, PostId, Content, CreatedAt)
+    VALUES (@UserId, @PostId, @Content, @CreatedAt);
+    
+    SET @NewId = SCOPE_IDENTITY();
+END;
+```
 
 ## API
 
 ### Documentação da API
 A API é documentada com Swagger (acessível em `/swagger`).
 
-#### Endpoint: Criar Comentário
+#### Exemplos Endpoint: Criar Comentário
 - **Método**: `POST /api/posts/{postId}/comments`
 - **Autenticação**: JWT
 - **Parâmetros**:
@@ -245,9 +206,10 @@ A API é documentada com Swagger (acessível em `/swagger`).
 
 ### Descrição das Funcionalidades da Interface
 - **Feed**: Lista de posts com fotos de gatos.
-- **Detalhes do Post**: Exibe imagem, descrição, curtidas e comentários.
+- **Detalhes do Post**: Exibe imagem, descrição, detalhes do gato, curtidas, visualizações e comentários.
 - **Botão de Sugestão**: Gera comentários via IA ao clicar.
-- [Adicionar informação: Outras funcionalidades do front-end]
+- **Perfil de um Usuário**: Mostra posts de um determiado usuário.
+- **Criação de posts**: Layout para criação de posts, com visualização da imagem postada em tempo real.
 
 [Imagem: Captura de tela do feed de posts]
 
@@ -268,9 +230,6 @@ A API é documentada com Swagger (acessível em `/swagger`).
 ### Próximos Passos
 - Adicionar suporte a notificações.
 - Implementar filtros no feed.
-- [Adicionar informação: Planos para o front-end]
-
----
 
 ## Anexos
 
@@ -282,10 +241,3 @@ A API é documentada com Swagger (acessível em `/swagger`).
 - [Cloudinary](https://cloudinary.com/documentation)
 - [OpenAI API](https://platform.openai.com/docs)
 
-### Créditos e Agradecimentos
-- Agradecimentos ao time da xAI pelo suporte com Grok.
-
----
-
-### Notas Finais
-Essa é uma versão inicial do `README.md`. Adicionei placeholders para informações do front-end e imagens que você pode incluir. Se precisar de mais detalhes sobre algum ponto (ex.: front-end ou exemplos de código adicionais), é só pedir! 😊 Como ficou? Quer ajustar algo antes de eu detalhar mais?
