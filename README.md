@@ -2,6 +2,8 @@
 
 Bem-vindo ao **Miau**, uma rede social para amantes de gatos! Este projeto permite que usuários compartilhem fotos de seus felinos, interajam com curtidas e comentários, e explorem uma comunidade apaixonada por gatos.
 
+![Feed principal](./images/photo-details.png)
+
 ## Introdução
 
 ### Descrição Geral do Projeto
@@ -69,7 +71,7 @@ O Miau segue uma arquitetura em camadas baseada no **Repository Pattern**, com:
 - **Front-end**: React.js.
 - **Serviços Externos**: Cloudinary para upload de imagens e Azure Inference/OpenAI para sugestões de comentários.
 
-[Imagem: Diagrama da arquitetura mostrando camadas e fluxo de dados]
+![Diagrama da arquitetura mostrando camadas e fluxo de dados](./images/system-diagram.png)
 
 ### Funcionalidades
 - Cadastro e login de usuários.
@@ -205,15 +207,17 @@ A API é documentada com Swagger (acessível em `/swagger`).
 ## Interface do Usuário
 
 ### Descrição das Funcionalidades da Interface
-- **Feed**: Lista de posts com fotos de gatos.
+- **Login/Registro**: Formulário de autenticação, para registrar ou entrar na rede social.  
+![Captura de tela do feed de posts](./images/login.png)  
+- **Feed**: Lista de posts com fotos de gatos.  
+![Captura de tela do feed de posts](./images/feed.png)  
 - **Detalhes do Post**: Exibe imagem, descrição, detalhes do gato, curtidas, visualizações e comentários.
-- **Botão de Sugestão**: Gera comentários via IA ao clicar.
-- **Perfil de um Usuário**: Mostra posts de um determiado usuário.
-- **Criação de posts**: Layout para criação de posts, com visualização da imagem postada em tempo real.
-
-[Imagem: Captura de tela do feed de posts]
-
----
+- **Botão de Sugestão**: Gera comentários via IA ao clicar.  
+![Captura de tela do feed de posts](./images/photo-details.png)  
+- **Perfil de um Usuário**: Mostra posts de um determiado usuário.  
+![Captura de tela do feed de posts](./images/profile-feed.png)  
+- **Criação de posts**: Layout para criação de posts, com visualização da imagem postada em tempo real.  
+![Captura de tela do feed de posts](./images/form-post-photo.png)  
 
 ## Considerações Finais
 
