@@ -2,6 +2,12 @@
     grid-column: 2;
 }
 
+@media (max-width: 1024px) {
+    .container {
+        grid-column: 1;
+    }
+}
+
 .form {
     display: grid;
     grid-template-columns: 1fr auto;

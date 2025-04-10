@@ -1,5 +1,7 @@
 .wrapper {
     display: grid;
+    height: 100%;
+    width: 100%;
 }
 
 .img {
@@ -8,6 +10,12 @@
     grid-area: 1/1;
     opacity: 0;
     transition: .2s;
+}
+
+@media (max-width: 1024px) {
+    .img {
+        max-height: 300px;
+    }
 }
 
 .skeleton {

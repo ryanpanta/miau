@@ -23,3 +23,11 @@
     font-family: var(--type-first);
     
 }
+
+@media(max-width: 1024px) {
+   
+    .sectionTitle {
+        display: none;
+    }
+    
+}

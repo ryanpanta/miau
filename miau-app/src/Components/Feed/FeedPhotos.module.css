@@ -11,3 +11,30 @@
         grid-template-columns: 1fr 1fr;
     }
 }
+
+.noPhotos {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--color-gray);
+}
+
+.noPhotos p {
+    text-align: center;
+}
+
+.noPhotos img {
+    width: 120px;
+    height: 120px;
+}
+
+.noPhotos a {
+    margin-top: 6px;
+    color: var(--terciary-color);
+    text-decoration: underline;
+    background-color: var(--primary-color);
+    padding: 0 3px;
+}

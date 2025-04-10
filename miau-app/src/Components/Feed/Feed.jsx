@@ -44,6 +44,7 @@ function Feed({ user }) {
                     setInfinite={setInfinite}
                 />
             ))}
+            
         </div>
     );
 }
