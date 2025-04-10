@@ -6,6 +6,7 @@ import Error from "../Helper/Error";
 import Loading from "../Helper/Loading";
 import styles from "./FeedPhotos.module.css";
 import Sadness from "../../Assets/sadness-cat.png";
+import { Link } from "react-router-dom";
 
 function FeedPhotos({ page, user, setModalPhoto, setInfinite }) {
     const [photos, setPhotos] = React.useState([]);
@@ -53,7 +54,7 @@ function FeedPhotos({ page, user, setModalPhoto, setInfinite }) {
                             uma? :)
                             
                         </p>
-                        <a href="/conta/postar">Postar foto</a>
+                        <Link to="/conta/postar">Postar foto</Link>
                     </div>
                 )}
             </ul>
