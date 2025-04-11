@@ -38,10 +38,10 @@ function UserHeaderNav() {
                     <Feed />
                     {mobile && 'Minhas Fotos'}
                 </NavLink>
-                <NavLink to="/conta/estatisticas">
+               {/*  <NavLink to="/conta/estatisticas">
                     <Estatisticas />
                     {mobile && 'Estatísticas'}
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/conta/postar">
                     <Adicionar />
                     {mobile && 'Adicionar Foto'}

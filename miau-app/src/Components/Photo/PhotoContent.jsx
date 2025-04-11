@@ -7,15 +7,18 @@ import PhotoDelete from "./PhotoDelete";
 import Image from "../Helper/Image";
 import { Heart } from "lucide-react";
 import { addLike } from "../../api";
+import { useNavigate } from "react-router-dom";
 function PhotoContent({ data, single }) {
     const user = React.useContext(UserContext);
     const { comments } = data;
     const [isLiked, setIsLiked] = React.useState(data?.hasLiked);
     const [likes, setLikes] = React.useState(data?.likes);
 
+    const navigate = useNavigate();
+    
     async function handleLike(event) {
         if (!user.login) {
-            window.location.href = "/login";
+            navigate("/login");
             return;
         }
         event.stopPropagation();

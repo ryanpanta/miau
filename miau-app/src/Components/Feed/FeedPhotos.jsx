@@ -1,6 +1,5 @@
 import React from "react";
 import FeedPhotosItem from "./FeedPhotosItem";
-import useFetch from "../../Hooks/useFetch";
 import { photosGet } from "../../api";
 import Error from "../Helper/Error";
 import Loading from "../Helper/Loading";
@@ -18,7 +17,7 @@ function FeedPhotos({ page, user, setModalPhoto, setInfinite }) {
             try {
                 setLoading(true);
                 setError(null);
-                const total = 10;
+                const total = 6;
                 const response = await photosGet({ page, total, user });
                 setPhotos(response.posts);
                 if (response.posts.length < total) setInfinite(false);
@@ -35,31 +34,28 @@ function FeedPhotos({ page, user, setModalPhoto, setInfinite }) {
 
     if (error) return <Error error={error} />;
     if (loading) return <Loading />;
-    if (photos)
-        return (
-            <ul className={`${styles.feed} animeLeft`}>
-                {photos.length > 0 ? (
-                    photos.map((photo) => (
-                        <FeedPhotosItem
-                            key={photo.id}
-                            photo={photo}
-                            setModalPhoto={setModalPhoto}
-                        />
-                    ))
-                ) : (
-                    <div className={styles.noPhotos}>
-                        <img src={Sadness} alt="Gatinho triste" />
-                        <p>
-                            Nenhuma foto no momento. Que tal começar postando
-                            uma? :)
-                            
-                        </p>
-                        <Link to="/conta/postar">Postar foto</Link>
-                    </div>
-                )}
-            </ul>
-        );
-    else return null;
+    return (
+        <ul className={`${styles.feed} animeLeft`}>
+            {photos &&  photos.length > 0 ? (
+                photos.map((photo) => (
+                    <FeedPhotosItem
+                        key={photo.id}
+                        photo={photo}
+                        setModalPhoto={setModalPhoto}
+                    />
+                ))
+            ) : page < 2 ? (
+                <div className={styles.noPhotos}>
+                    <img src={Sadness} alt="Gatinho triste" />
+                    <p>
+                        Nenhuma foto no momento. Que tal começar postando uma?
+                        :)
+                    </p>
+                    <Link to="/conta/postar">Postar foto</Link>
+                </div>
+            ) : null}
+        </ul>
+    );
 }
 
 export default FeedPhotos;

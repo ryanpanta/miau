@@ -4,9 +4,12 @@ import Image from "../Helper/Image";
 import { Heart } from "lucide-react";
 import { addLike } from "../../api";
 import {UserContext} from "../../UserContext";
+import { Link, useNavigate } from "react-router-dom";
 function FeedPhotosItem({ photo, setModalPhoto }) {
     const { login, data } = React.useContext(UserContext);
     const [isLiked, setIsLiked] = React.useState(photo.hasLiked);
+
+    const navigate = useNavigate();
 
     function handleClick() {
         setModalPhoto(photo);
@@ -14,7 +17,7 @@ function FeedPhotosItem({ photo, setModalPhoto }) {
 
     async function handleLike(event) {
         if (!login) {
-            window.location.href = "/login";
+            navigate("/login");
             return;
         }
         event.stopPropagation();
@@ -33,7 +36,7 @@ function FeedPhotosItem({ photo, setModalPhoto }) {
             <Image src={photo.imageUrl} alt={photo.description} />
             <span className={styles.visualizacao}>{photo.views}</span>
             <section className={styles.details}>
-                <a href={`/perfil/${photo.username}`}>{photo.username === data?.username ? 'eu' : '@' + photo.username}</a>
+                <Link to={`/perfil/${photo.username}`}>{photo.username === data?.username ? 'eu' : '@' + photo.username}</Link>
                 <button onClick={handleLike}>
                     <Heart
                         size={20}
